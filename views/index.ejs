@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Необходимые Мета-теги всегда на первом месте -->  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="cpazilla-site-verification" content="e5c7a7c09ceeca20e" />
+
+    <!-- Bootstrap CSS -->  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body style="padding: 20px 18%">
+  	<!--cpazilla-site-verification: "e5c7a7c09ceeca20e"-->
+    <div class="row">
+	  <div class="col-md-4">
+	  	<a href="/"><h1>RussianResaler</h1></a>
+	  	<br>
+	  	<h5>Аккаунт: <%= info %></h5>
+	  </div>
+	  <div class="col-md-4">
+		<!-- <form class="form-inline" >
+			<div class="form-group" style="width: 150px">
+			    <input type="text" class="form-control" id="search" placeholder="Поиск">
+			</div>
+			  <button type="submit" class="btn btn-link"><img src="https://raw.githubusercontent.com/Egor14/resaler/master/public/search.png" style="width: 30px; height: 30px;"></button>
+		</form> -->
+		<br>
+		<!-- <h5>Денег на счете: <%= money %></h5> -->
+	  </div>
+
+
+
+
+	  <div class="col-md-2">
+
+	  	<form action="/log" method="get">
+	  		<!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+	  		<button type="submit" class="btn btn-success but" <% if (info != '') { %>
+	  																disabled
+	  															<% } %>>Войти</button>
+
+	  		<!-- <button type="button" class="btn btn-success">Войти</button> -->
+	  	</form>
+
+	  	<form action="/sell" method="get">
+	  		<!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+
+	  		<input type="submit" name="bt1"  id="btnYour" class="btn btn-primary but" value="Продать">
+	  		<!-- <button type="button" class="btn btn-success">Войти</button> -->
+	  	</form>
+
+	  	</form>
+
+	  	
+	  </div>
+
+	  <div class="col-md-2">
+
+	  	<form action="/sign" method="get">
+	  		<!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+	  		<button type="submit" class="btn btn-success but" <% if (info != '') { %>
+	  																disabled
+	  															<% } %>>Регистрация</button>
+	  	</form>
+
+	  	<form action="/out" method="get">
+	  		<!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+	  		<button type="submit" class="btn btn-outline-danger but">Выйти</button>
+	  	</form>
+
+	  	
+	  </div>
+
+	 <% if (value == 'true') { %>
+	 	<form action="/admin" method="get">
+	  		<!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+	  		<button type="submit" class="btn btn-outline-danger">Страница для администратора</button>
+	  	</form>
+	 <% } %>
+
+
+    </div>
+
+
+
+    <hr>
+    <div class="row category">
+	  <div class="col-md-4"><a href="/filter/1"><h5>МУЖСКОЕ</h5></a></div>
+	  <div class="col-md-4"><a href="/filter/0"><h5>ЖЕНСКОЕ</h5></a></div>
+	  <% if (info != '') { %>
+	  	<div class="col-md-4"><a href="/filter/my"><h5>Мои объявления</h5></a></div>
+	  			<% } %>
+    </div>
+
+	  	<% catalog = JSON.parse(catalogJSON); %> 
+<!-- 
+        <div class="row"> -->
+	  	<% for (i=0; i<catalog.length; i++){ %>
+	  			<label><a href="/auction/<%=catalog[i].lot_id%>"><img class="lots" src = <%= 'image' + catalog[i].img_id + '.jpg' %>  alt="Third lot"></a><br><%= catalog[i].brand %><br><%= catalog[i].model %><br><span class="badge badge-pill badge-success">  <%= catalog[i].price  %> руб </span></label>
+
+	  			
+
+	  			
+				  <!-- <div class="col-md-4">
+				    <div class="card" style="width: 18rem;">
+  						<img class="card-img-top" src = <%= 'image' + catalog[i].img_id + '.jpg' %> alt="Card image cap">
+					  <div class="card-body">
+					    <h5 class="card-title">Название карточки</h5>
+					    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					    <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
+					  </div>
+					</div>
+				  </div> -->
+				 
+
+
+
+	  				
+
+	  			<% if (value == 'true' && main == false) { %>
+	 				
+	 				<form action="/ok/<%= catalog[i].lot_id %>" method="get">
+
+	
+	  					<button type="submit" class="btn btn-success but">Одобрить</button>
+	  	
+	  				</form>
+
+	  				<form action="/no/<%= catalog[i].lot_id %>" method="get">
+
+	  
+	  					<button type="submit" class="btn btn-outline-danger but">Удалить</button>
+
+	  				</form>
+
+	 			<% } %>
+
+	 			<% if (main == 'my') { %>
+
+	  				<form action="/no/<%= catalog[i].lot_id %>" method="get">
+
+	  
+	  					<button type="submit" class="btn btn-outline-danger but">Удалить</button>
+
+	  				</form>
+
+	 			<% } %>
+
+		<% } %>
+
+	<!-- 	</div> -->
+		
+	
+
+    
+
+
+    <!-- jQuery первый, затем Tether, затем Bootstrap JS. -->  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

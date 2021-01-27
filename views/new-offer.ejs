@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Необходимые Мета-теги всегда на первом месте -->  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body style="padding: 20px 18%;">
+    <div class="row">
+      <div class="col-md-4"><a href="/"><h1>RussianResaler</h1></a></div>
+      <div class="col-md-4">
+      <form class="form-inline">
+        <div class="form-group" style="width: 150px">
+            <input type="text" class="form-control" id="search" placeholder="Поиск">
+        </div>
+          <button type="submit" class="btn btn-link"><img src="https://raw.githubusercontent.com/Egor14/resaler/master/public/search.png" style="width: 30px; height: 30px;"></button>
+      </form>
+      </div>
+      <div class="col-md-4">
+        <form action="/sell" method="get">
+          <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать">
+          <button type="button" class="btn btn-success">Войти</button>
+        </form>
+      </div>
+      </div>
+      <hr>
+      <div class="row category">
+      <div class="col-md-4"><h5>МУЖСКОЕ</h5></div>
+      <div class="col-md-4"><h5>ЖЕНСКОЕ</h5></div>
+      <div class="col-md-4"><h5>БРЕНДЫ</h5></div>
+    </div>
+    <h1>Продажа</h1>
+    <br>
+    <form action="/place" enctype="multipart/form-data" method="post">
+      <input type="file" name="basePhoto" id="basePhoto" accept=".png,.jpg,.jpeg" multiple required>
+      <br>
+      <br>
+
+      <label>Бренд<br>
+          <select name="brand" class="custom-select" required>
+
+            <% for (i=0; i<brands.length; i++) { %>
+                <option value="<%= brands[i].brand_id %>"> <%= brands[i].brand %> </option>
+            <% } %>
+
+          </select>
+      </label>
+
+      
+      <!-- <div class="form-group">
+          <input type="text" class="form-control" name="brand" id="search" placeholder="Модель" required>
+      </div> -->
+
+      <label>Модель<br>
+          <input type="text" name="model" id="time" class="form-control" placeholder="xx:xx" required maxlength="50">
+      </label>
+
+
+      <br>
+      <br>
+
+      <label class="custom-control custom-radio">
+        <input id="male" name="sex" type="radio" class="custom-control-input" value="0" checked>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">Мужское</span>
+      </label>
+      <label class="custom-control custom-radio">
+        <input id="female" name="sex" type="radio" class="custom-control-input" value="1">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">Женское</span>
+      </label>
+
+
+      <br>
+      <br>
+
+      <label>Категория<br>
+          <select name="category" class="custom-select" required>
+
+            <% for (i=0; i<categories.length; i++) { %>
+                <option value="<%= categories[i].category_id %>"> <%= categories[i].category %> </option>
+            <% } %>
+
+          </select>
+      </label>
+
+      
+
+
+      <label>Размер<br>
+          <select name="size" class="custom-select" required>
+
+            <% for (i=0; i<sizes.length; i++) { %>
+                <option value="<%= sizes[i].size_id %>"> <%= sizes[i].size %> </option>
+            <% } %>
+
+          </select>
+      </label>
+
+      
+
+      <label>Состояние<br>
+          <select name="condition" class="custom-select" required>
+
+            <% for (i=0; i<conditions.length; i++) { %>
+                <option value="<%= conditions[i].condition_id %>"> <%= conditions[i].condition %> </option>
+            <% } %>
+
+          </select>
+      </label>
+
+      <br>
+
+
+      <label>Цена (руб)<br>
+        <input type="number" name="price" id="startPriceSell" class="form-control" placeholder="2500" required min="0" max="1000000">
+      </label>
+
+      
+
+
+      <!-- <label>Время аукциона<br>
+          <input type="number" name="time" id="time" class="form-control" placeholder="xx:xx" required>
+      </label> -->
+
+
+      
+
+
+      <label>Город<br>
+          <select name="city" class="custom-select" required>
+
+            <% for (i=0; i<cities.length; i++) { %>
+                <option value="<%= cities[i].city_id %>"> <%= cities[i].city %> </option>
+            <% } %>
+
+          </select>
+      </label>
+
+
+      <br>
+      <br>
+
+
+      <label for="description">Описание</label>
+      <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+      <br>
+
+      
+
+      <br>
+
+      
+
+      <button type="submit" class="btn btn-primary">Опубликовать</button>
+    </form> 
+
+    <!-- jQuery первый, затем Tether, затем Bootstrap JS. -->  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+  </body>
+</html>

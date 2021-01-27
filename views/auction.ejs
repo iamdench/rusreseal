@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Необходимые Мета-теги всегда на первом месте -->  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+    <!-- <script>
+
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+
+      var pusher = new Pusher('861cada503bdd961e815', {
+        cluster: 'eu',
+        forceTLS: true
+      });
+
+      var channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', function(data) {
+        document.getElementById("price").innerHTML = Number(document.getElementById("price").innerHTML) + Number(data.message);
+      });
+    </script> -->
+  </head>
+  <body style="padding: 20px 18%;">
+    <div class="row">
+    <div class="col-md-4">
+      <a href="/"><h1>RussianResaler</h1></a>
+      <br>
+      <h5>Аккаунт: <%= info %></h5>
+    </div>
+    <div class="col-md-4">
+    <form class="form-inline" >
+      <div class="form-group" style="width: 150px">
+          <input type="text" class="form-control" id="search" placeholder="Поиск">
+      </div>
+        <button type="submit" class="btn btn-link"><img src="https://raw.githubusercontent.com/Egor14/resaler/master/public/search.png" style="width: 30px; height: 30px;"></button>
+    </form>
+    <br>
+    <!-- <h5>Денег на счете: <%= money %></h5> -->
+    </div>
+
+
+    <div class="col-md-2">
+
+      <form action="/log" method="get">
+        <!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+        <button type="submit" class="btn btn-success but">Войти</button>
+
+        <!-- <button type="button" class="btn btn-success">Войти</button> -->
+      </form>
+
+      <form action="/sell" method="get">
+        <!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+
+        <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary but" value="Продать">
+        <!-- <button type="button" class="btn btn-success">Войти</button> -->
+      </form>
+
+      </form>
+
+      
+    </div>
+
+    <div class="col-md-2">
+
+      <form action="/sign" method="get">
+        <!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+        <button type="submit" class="btn btn-success but">Регистрация</button>
+      </form>
+
+      <form action="/out" method="get">
+        <!-- <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Продать"> -->
+        <button type="submit" class="btn btn-outline-danger but">Выйти</button>
+      </form>
+
+      
+    </div>
+
+
+
+    </div>
+    <hr>
+
+
+
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-md-7">
+          <h2><%= shmot[0].brand %></h2>
+          <br>
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+
+              <!-- <div class="carousel-item active">
+                <img class="d-block w-100" src=<%= 'image' + shmot[0].img_id + '.jpg' %>  alt="First slide">
+              </div> -->
+              
+
+              <div class="carousel-item active">
+                    <img class="d-block w-100 auc" src=<%= 'image' + shmot[0].img_id + '.jpg' %> alt="Third slide">
+              </div>
+              
+
+              <% for (i=1; i<shmot.length; i++){ %>
+                  <div class="carousel-item">
+                    <img class="d-block w-100 auc" src=<%= 'image' + shmot[i].img_id + '.jpg' %> alt="Third slide">
+                  </div>
+
+              <% } %>
+
+              </div>
+
+              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+
+        
+            
+          </div>
+
+          Комментарий: 
+          <br>
+          <%= shmot[0].comment %>
+
+        </div>
+
+        <div class="col-md-5">
+
+          <div id="Price">
+            <h3>
+              Цена:
+              <span class="badge badge-pill badge-success">  <%= shmot[0].price  %> руб </span>
+          </h3>
+          </div> 
+
+
+          <h4>
+              Продавец: <%= shmot[0].name  %><br>
+                             <% score = 0; %>
+                                <% for (i=0; i<fback.length; i++) { %>
+                                  <% score += fback[i].score; %>
+                                <% } %>
+                              <% score = Math.round(score/fback.length * 10)/10; %>
+                              <% if (score >= 4) { %>
+                                  Средняя оценка: <span style="color: green;"><%= score; %></span>
+                              <% } %>
+                              <% if (score >= 3.5 && score < 4) { %>
+                                  Средняя оценка: <span style="color: orange;"><%= score; %></span>
+                              <% } %>
+                              <% if (score < 3.5) { %>
+                                  Средняя оценка: <span style="color: red;"><%= score; %></span>
+                              <% } %>
+                              
+          </h4>
+          <a href="<%= shmot[0].link %>"><button class="btn btn-primary">Договориться о покупке</button></a>
+          <br>
+
+
+          <!-- <div id="Timer">
+            <h3>
+              Осталось времени: 
+              <span id="time"><%= shmot[0].time  %></span>
+            </h3>
+          </div>  -->
+  
+
+          <!-- <form action="/update/<%= shmot[0].lot_id  %>" method="post" class="form-inline">
+            <div class="form-group">
+              <h5>
+                <label for="inputPassword6"> Поднять на </label>
+                <input type="number" name="Price" id="inputPassword6" class="form-control" placeholder="сумма" style="width: 100px;">
+                   руб <br>
+              </h5>
+              <input type="submit" name="bt2"  id="btnYourRaise" class="btn btn-primary" value="Поднять">
+            </div>
+          </form> -->
+
+          <br>
+          <h3>Описание</h3>
+
+          <% if (shmot[0].gender) { %>
+              Женское
+          <% } %>
+
+          <% if (shmot[0].gender == false) { %>
+              Мужское
+          <% } %>
+
+          <br>
+          <br>
+
+          Бренд: <%= shmot[0].brand %>
+
+          <br>
+          <br>
+
+          Модель: <%= shmot[0].model %>
+
+          <br>
+          <br>
+
+          Категория: <%= shmot[0].global + ' / ' + shmot[0].category %>
+
+          <br>
+          <br>
+
+          Город: <%= shmot[0].city  %>
+
+          <br>
+          <br>
+
+
+          Размер: <%= shmot[0].size %>
+
+          <br>
+          <br>
+
+          Состояние: <%= shmot[0].condition %>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <% if (info != '') { %>
+      <form action="/feedback" method="post">
+
+        <label>Оценка продавцу<br>
+          <select name="score" class="custom-select" required>
+
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+                
+          </select>
+      </label>
+
+        <div class="form-group">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Написать отзыв о продавце" name="feedback" required=""></textarea>
+        </div>
+
+        <input type="hidden" id="user_id" name="user_id" value="<%= shmot[0].user_id %>">
+
+        <input type="submit" name="bt1"  id="btnYour" class="btn btn-primary" value="Опубликовать">
+
+      </form>
+
+      <% } %>
+
+      <br>
+
+      <% if (fback.length == 1) { %>
+        <h3><span class="badge badge-secondary"><%= fback[0].name %></span></h3>
+
+        <% if (fback[0].score != undefined) { %>
+          <% for (j=0; j<fback[0].score; j++) { %>
+                  <img src="https://raw.githubusercontent.com/Egor14/resaler/master/public/star.png" style="height: 20px; width: 20px;">
+              <% } %>
+          <% } %>
+
+              <br>
+              <br>
+          <div class="feedback">
+            <%= fback[0].review %>
+          </div>
+        <% } %>
+       
+
+
+      <% if (fback.length > 1) { %>
+          <% for (i=0; i<fback.length; i++) { %>
+            <h3><span class="badge badge-secondary"><%= fback[i].name %></span></h3>
+
+
+            <% if (fback[i].score != undefined) { %>
+            <% for (j=0; j<fback[i].score; j++) { %>
+                <img src="https://raw.githubusercontent.com/Egor14/resaler/master/public/star.png" style="height: 20px; width: 20px;">
+            <% } %>
+             <% } %>
+
+
+            <br>
+            <br>
+            <div class="feedback">
+          <%= fback[i].review %>
+            </div>
+            <br>
+          <% } %>
+      <% } %>
+
+
+    <script src="timer.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
