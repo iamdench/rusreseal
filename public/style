@@ -1,0 +1,79 @@
+.category {
+	text-align: center;
+}
+
+.lots {
+
+	height: 200px;
+	padding: 10px;
+	margin: 20px 20px 0px 0px;
+}
+
+.lots:hover {
+	border: 1px solid blue;
+}
+
+.image {
+	width: 500px;
+	height: 400px;
+}
+
+body {
+  padding: 0px;
+}
+.carousel-control-next {
+  margin-left : 200px;
+  color: black;
+  background-color: black;
+}
+
+.but {
+  width: 125px;
+  margin: 10px;
+}
+
+input:invalid {border-color: red;}
+input:valid {border-color: green;}
+
+.auc {
+  height: 500px;
+}
+
+.my-forms {
+  width: 400px;
+  height: 400px;
+  margin: 50px auto;
+  padding: 10px;
+}
+
+.feedback {
+  background-color: #EAEAEA;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+@include media-breakpoint-up(sm) {
+  body {
+    padding: 0px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  body {
+    padding: 0px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  body {
+    padding: 20px 20%;
+  }
+}
